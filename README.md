@@ -39,7 +39,7 @@ Mamba is the easiest way to install VirSorter2. If you do not have mamba install
 
 ```bash
 mamba create -n vs2 -c conda-forge -c bioconda virsorter=2
-mamba activate vs2
+conda activate vs2
 ```
 
 ## Option 2 (development version)
@@ -48,7 +48,7 @@ The development version is most updated. To install the development version:
 
 ```bash
 mamba create -n vs2 -c conda-forge -c bioconda "python>=3.6,<=3.10" scikit-learn=0.22.1 imbalanced-learn pandas seaborn hmmer==3.3 prodigal screed ruamel.yaml "snakemake>=5.18,<=5.26" click "conda-package-handling<=1.9"
-mamba activate vs2
+conda activate vs2
 git clone https://github.com/jiarong/VirSorter2.git
 cd VirSorter2
 pip install -e .
