@@ -38,11 +38,10 @@ See more details in [the publicaiton](https://pubmed.ncbi.nlm.nih.gov/33522966).
 The development version is most updated. To install the development version:
 
 ```bash
-mamba create -n vs2 -c conda-forge -c bioconda "python=3.8" scikit-learn=0.22.1 imbalanced-learn pandas seaborn hmmer==3.3 prodigal screed ruamel.yaml "snakemake>=5.18,<=5.26" click "conda-package-handling<=1.9"
+mamba create -n vs2 -c conda-forge -c bioconda "python=3.8" scikit-learn=0.22.1 imbalanced-learn pandas seaborn pyhmmer==0.10.14 prodigal screed ruamel.yaml "snakemake>=5.18,<=5.26" click "conda-package-handling<=1.9"
 mamba activate vs2
-mamba install pyhmmer=0.10.14
-git clone https://github.com/jiarong/VirSorter2.git
-cd VirSorter2
+git clone https://github.com/liusihang/VirSorter2-pyhmmerAcc.git
+cd VirSorter2-pyhmmerAcc
 pip install -e .
 ```
 
