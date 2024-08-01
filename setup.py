@@ -22,11 +22,13 @@ def get_version(relpath):
 
 setup(
     name='virsorter',
-    version='2.2.4',
-    url='https://github.com/jiarong/VirSorter2',
-    license='GPL-2',
+    version='2.2.4.1',
+    url='https://github.com/liusihang/VirSorter2-pyhmmerAcc',
+    license='GPL-3',
     author='Jiarong Guo',
+    modifiedby='Sihang Liu',
     author_email='guojiaro@gmail.com',
+    modifiedauthor_email='liusihang@tongji.edu.cn',
     description=('VirSorter2: A multi-classifier, expert-guided approach to '
         'detect diverse DNA and RNA virus genomes'),
     long_description=long_description,

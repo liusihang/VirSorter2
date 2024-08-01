@@ -3,7 +3,8 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - python >=3.6
+  - python =3.8
+  - pyhmmer =0.10.14
   - ruamel.yaml =0.16.6
   - snakemake-minimal >=5.18,<=5.26
   - click >=7

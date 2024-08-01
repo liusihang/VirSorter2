@@ -1,4 +1,3 @@
-
 # detect circular, predict genes on contigs, and filter on size (# of genes) and/or if circular
 localrules: circular_linear_split
 checkpoint circular_linear_split:
