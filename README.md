@@ -6,7 +6,7 @@
     #####################################################################
 
 
-# VirSorter 2 
+# VirSorter2-pyhmmerAcc
 
 [![Bioconda](https://img.shields.io/conda/vn/bioconda/virsorter.svg?color=43b02a)](https://anaconda.org/bioconda/virsorter)
 [![Build Status](https://travis-ci.org/jiarong/VirSorter2.svg?branch=master)](https://travis-ci.org/jiarong/VirSorter2)
@@ -25,7 +25,7 @@ See more details in [the publicaiton](https://pubmed.ncbi.nlm.nih.gov/33522966).
 
 # Important updates
 
-- The newest stable version is 2.2.4. 
+- The newest stable version is 2.2.4.1. 
 - A tutorial/SOP on how to quality control VirSorter2 results is avaiable [here](https://www.protocols.io/view/viral-sequence-identification-sop-with-virsorter2-btv8nn9w).
 - A few new options are added to accommodate the SOP (see details in [change log](Changelog.md)).
 - The default --include-groups is changed from all viral groups to dsDNAphage and ssDNA since this should be used for most people interested in phage.
@@ -33,16 +33,7 @@ See more details in [the publicaiton](https://pubmed.ncbi.nlm.nih.gov/33522966).
 
 # Installation (tested on CentOS linux; should work in all linux; MacOS is not supported at the moment)
 
-## Option 1 (bioconda version)
-
-Mamba is the easiest way to install VirSorter2. If you do not have mamba installed, it can be installed following [this link](https://mamba.readthedocs.io/en/latest/installation.html).
-
-```bash
-mamba create -n vs2 -c conda-forge -c bioconda virsorter=2
-mamba activate vs2
-```
-
-## Option 2 (development version)
+## Development version (Only support this version for now)
 
 The development version is most updated. To install the development version:
 
@@ -53,16 +44,6 @@ git clone https://github.com/jiarong/VirSorter2.git
 cd VirSorter2
 pip install -e .
 ```
-
-## Option 3
-
-If you have **apptainer** (formerly known as **singularity**) [installed](https://apptainer.org/) (typical in HPC clusters), the following is the most convenient. Also use the option if you have issues with conda. 
-
-```bash
-apptainer build virsorter2.sif docker://jiarong/virsorter:latest
-```
-
-You will get a file `virsorter2.sif`, which is a singularity image that can be run like a binary executable file. You can use the **absolute path** of this file to replace `virsorter` in commands for the rest of the tutorial. Also this image has the database and dependencies included, so you can skip the [Download database and dependencies step](#download-database-and-dependencies) below.
 
 # Download database and dependencies
 
