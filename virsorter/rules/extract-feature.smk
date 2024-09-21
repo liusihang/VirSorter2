@@ -39,7 +39,7 @@ rule hmmsearch:
     shell:
         """
         set -e # 如果任何命令失败，则立即停止执行
-        python {Scriptdir}/pyhmmersearch.py --faa_file {input.faa} --db_dir {Dbdir} --output_file {output.tax} --thread 0 --evalue 1e-10 --bitscore 30 &> {params.log}
+        python {Scriptdir}/pyhmmersearch.py --faa_file {input.faa} --db_dir {Dbdir} --output_file {output.tax} --evalue 1e-10 --bitscore 30 &> {params.log}
         python {Scriptdir}/selectbesthit.py {output.tax}
         python {Scriptdir}/selectbesthit.py {output.tax_NCLDV}
         """
