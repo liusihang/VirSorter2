@@ -30,7 +30,7 @@ rule hmmsearch:
     input:
         faa = f'{Tmpdir}/all.pdg.faa',
         faa_NCLDV = f'{Tmpdir}/NCLDV/all.pdg.faa'
-    threads:Threads
+    threads:THREADS
     output: 
         tax = f'{Tmpdir}/all.pdg.hmm.tax',
         tax_NCLDV =f'{Tmpdir}/NCLDV/all.pdg.hmm.tax'
