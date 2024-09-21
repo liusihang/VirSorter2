@@ -4,6 +4,12 @@ import argparse
 import pyhmmer
 from pyhmmer.easel import SequenceFile
 from pyhmmer.plan7 import HMMFile
+from virsorter.config import get_default_config
+
+DEFAULT_CONFIG = get_default_config()
+THREADS = DEFAULT_CONFIG['THREADS']
+cpu = THREADS
+
 
 def run_pyhmmer(faa_file, hmm_dbs, output_file, threads, evalue, bitscore):
     """
@@ -49,7 +55,7 @@ def main(args):
     }
 
     # Run pyhmmer on the initial faa file
-    run_pyhmmer(args.faa_file, hmm_dbs, args.output_file, args.threads, args.evalue, args.bitscore)
+    run_pyhmmer(args.faa_file, hmm_dbs, args.output_file, cpu, args.evalue, args.bitscore)
 
     # Get the directory of the initial faa file
     faa_dir = os.path.dirname(args.faa_file)
@@ -73,7 +79,7 @@ if __name__ == "__main__":
     parser.add_argument('--faa_file', required=True, help='Input .faa file path')
     parser.add_argument('--db_dir', required=True, help='Database directory path')
     parser.add_argument('--output_file', required=True, help='Output file path')
-    parser.add_argument('--threads', type=int, default=1, help='Number of threads to use')
+    #parser.add_argument('--threads', type=int, default=1, help='Number of threads to use')
     parser.add_argument('--evalue', type=float, default=1e-10, help='E-value threshold for pyhmmer')
     parser.add_argument('--bitscore', type=float, default=30, help='Bitscore threshold for pyhmmer')
 
