@@ -1,9 +1,14 @@
+#!/usr/bin/env python
+import sys
+import warnings
+import joblib
 import collections
 import os
 import argparse
 import pyhmmer
 from pyhmmer.easel import SequenceFile
 from pyhmmer.plan7 import HMMFile
+
 
 def run_pyhmmer(faa_file, hmm_dbs, output_file, threads, evalue, bitscore):
     """
