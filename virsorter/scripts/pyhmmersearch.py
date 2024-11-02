@@ -24,21 +24,22 @@ def run_pyhmmer(faa_file, hmm_dbs, output_file, threads, evalue, bitscore):
     # Define result named tuple
     Result = collections.namedtuple("Result", ["protein", "db", "phrog", "bitscore", "evalue"])
 
-    # Run hmmsearch with pre-fetching targets into memory
+    # Pre-fetch sequences into memory once, outside the loop
     results = []
+    with SequenceFile(faa_file, digital=True) as seq_file:
+        # Pre-fetch all sequences into memory
+        seqs = seq_file.read_block()
+
+    # Run hmmsearch on each HMM database file
     for db_name, hmm_db_file in hmm_dbs.items():
         with HMMFile(hmm_db_file) as hmms:  # Load HMMs
-            with SequenceFile(faa_file, digital=True) as seq_file:
-                # Pre-fetch all sequences into memory
-                seqs = seq_file.read_block()
-                
-                # Run hmmsearch on the pre-fetched sequences
-                for hits in pyhmmer.hmmer.hmmsearch(hmms, seqs, cpus=int(threads), E=float(evalue), T=bitscore):
-                    protein = hits.query_name.decode()  # Get protein from the hit
-                    for hit in hits:
-                        if hit.included:
-                            # Include the hit to the result collection
-                            results.append(Result(protein, db_name, hit.name.decode(), hit.score, hit.evalue))
+            # Run hmmsearch on the pre-fetched sequences
+            for hits in pyhmmer.hmmer.hmmsearch(hmms, seqs, cpus=int(threads), E=float(evalue), T=bitscore):
+                protein = hits.query_name.decode()  # Get protein from the hit
+                for hit in hits:
+                    if hit.included:
+                        # Include the hit to the result collection
+                        results.append(Result(protein, db_name, hit.name.decode(), hit.score, hit.evalue))
 
 
     # Write results to output file
