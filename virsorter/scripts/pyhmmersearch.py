@@ -19,17 +19,22 @@ def run_pyhmmer(faa_file, hmm_dbs, output_file, threads, evalue, bitscore):
     # Define result named tuple
     Result = collections.namedtuple("Result", ["protein", "db", "phrog", "bitscore", "evalue"])
 
-    # Run hmmscan and get all results
+    # Run hmmsearch with pre-fetching targets into memory
     results = []
     for db_name, hmm_db_file in hmm_dbs.items():
         with HMMFile(hmm_db_file) as hmms:  # Load HMMs
-            with SequenceFile(faa_file, digital=True) as seqs:  # Load sequences
-                for hits in pyhmmer.hmmer.hmmsearch(hmms, seqs, cpus=int(threads), E=float(evalue), T=bitscore):  # Run hmmscan
+            with SequenceFile(faa_file, digital=True) as seq_file:
+                # Pre-fetch all sequences into memory
+                seqs = seq_file.read_block()
+                
+                # Run hmmsearch on the pre-fetched sequences
+                for hits in pyhmmer.hmmer.hmmsearch(hmms, seqs, cpus=int(threads), E=float(evalue), T=bitscore):
                     protein = hits.query_name.decode()  # Get protein from the hit
                     for hit in hits:
                         if hit.included:
                             # Include the hit to the result collection
                             results.append(Result(protein, db_name, hit.name.decode(), hit.score, hit.evalue))
+
 
     # Write results to output file
     with open(output_file, 'w') as out_f:
@@ -41,11 +46,11 @@ def run_pyhmmer(faa_file, hmm_dbs, output_file, threads, evalue, bitscore):
 def main(args):
     # Define HMM databases
     hmm_dbs = {
-        "vir": f"{args.db_dir}/hmm/viral/combined.hmm",
-        "arc": f"{args.db_dir}/hmm/pfam/Pfam-A-Archaea.hmm",
-        "bac": f"{args.db_dir}/hmm/pfam/Pfam-A-Bacteria.hmm",
-        "euk": f"{args.db_dir}/hmm/pfam/Pfam-A-Eukaryota.hmm",
-        "mixed": f"{args.db_dir}/hmm/pfam/Pfam-A-Mixed.hmm",
+        "vir": f"{args.db_dir}/hmm/viral/combined.h3m",
+        "arc": f"{args.db_dir}/hmm/pfam/Pfam-A-Archaea.h3m",
+        "bac": f"{args.db_dir}/hmm/pfam/Pfam-A-Bacteria.h3m",
+        "euk": f"{args.db_dir}/hmm/pfam/Pfam-A-Eukaryota.h3m",
+        "mixed": f"{args.db_dir}/hmm/pfam/Pfam-A-Mixed.h3m",
     }
 
     # Run pyhmmer on the initial faa file
